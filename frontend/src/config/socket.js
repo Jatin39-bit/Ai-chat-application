@@ -2,7 +2,7 @@ import {io} from 'socket.io-client'
 
 let socket;
 export const initializeSocket=(ProjectId)=>{
-    socket=io('http://localhost:3000',{
+    socket=io('https://ai-chat-application-sjc6.onrender.com',{
         auth:{
             token:localStorage.getItem('token')
         },
