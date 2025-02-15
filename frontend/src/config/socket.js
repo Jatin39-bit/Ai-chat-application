@@ -8,7 +8,8 @@ export const initializeSocket=(ProjectId)=>{
         },
         query:{
             projectId:ProjectId
-        }
+        },
+        transports: ["websocket"]
     })
     return socket
 }
