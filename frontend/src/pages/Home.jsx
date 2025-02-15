@@ -15,16 +15,17 @@ const Home = () => {
 
     const navigate=useNavigate()
 
-    useEffect(()=>{
-      const fetchProjects=async()=>{
-        try{
-          const response= await axios.get('/project/all',{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
-          setProjects(response.data)
-        }catch(err){
-          alert(err.response.data.message)
-          navigate('/login')
-        }
+    const fetchProjects=async()=>{
+      try{
+        const response= await axios.get('/project/all',{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
+        setProjects(response.data)
+      }catch(err){
+        alert(err.response.data.message)
+        navigate('/login')
       }
+    }
+    
+    useEffect(()=>{
       fetchProjects()
     },[])
 
@@ -67,7 +68,9 @@ const Home = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-md shadow-md w-[22%]">
             <h2 className="text-xl mb-4">Create Project</h2>
-            <form onSubmit={(e) => createProject(e)}>
+            <form onSubmit={(e) => {createProject(e) 
+              fetchProjects()
+            }}>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">Project Name</label>
                 <input
