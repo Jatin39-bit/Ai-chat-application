@@ -8,14 +8,12 @@ import ProtectWrapper from '../auth/ProtectWrapper'
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/project" element={<ProtectWrapper><Project /></ProtectWrapper>} />
         </Routes>
-    </BrowserRouter>
   )
 }
 

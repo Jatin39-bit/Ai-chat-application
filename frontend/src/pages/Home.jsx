@@ -22,6 +22,7 @@ const Home = () => {
           setProjects(response.data)
         }catch(err){
           alert(err.response.data.message)
+          navigate('/login')
         }
       }
       fetchProjects()
