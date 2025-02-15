@@ -14,8 +14,12 @@ const server = http.createServer(app)
 import {Server} from 'socket.io'
 const io=new Server(server,{
   cors:{
-    origin:'*'
-  }
+    origin:['https://ai-chat-application-frontend.onrender.com'],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Authorization"],
+    credentials: true
+  },
+  transports:["websocket"]
 })
 
 io.use(async(socket,next)=>{
