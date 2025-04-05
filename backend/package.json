@@ -1,11 +1,11 @@
 {
-  "name": "backend",
+  "name": "chat-application-backend",
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
   "scripts":{
     "start":"node server.js"
-  }
+  },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "bcrypt": "^5.1.1",
