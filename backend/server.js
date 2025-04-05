@@ -14,7 +14,7 @@ const server = http.createServer(app)
 import {Server} from 'socket.io'
 const io=new Server(server,{
   cors:{
-    origin:['https://ai-chat-application-frontend.onrender.com'],
+    origin:[''],
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true
