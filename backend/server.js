@@ -30,14 +30,20 @@ io.use(async(socket,next)=>{
       return next(new Error('Invalid project ID'));
     }
 
-    
-    
-    if(!token){
-      return next(new Error('Authentication error'))
+    if (!token) {
+      console.log("❌ Missing token");
+      return next(new Error("Authentication error"));
     }
+
     const decoded=jwt.verify(token,process.env.JWT_SECRET)
     socket.user=decoded
-    socket.project = await projectModel.findOne({ _id: projectId, users: socket.user.id });
+    const project = await projectModel.findOne({ _id: projectId, users: socket.user.id });
+
+    if (!project) {
+      console.log("❌ No matching project found for user");
+      return next(new Error("Unauthorized for this project"));
+    }
+    socket.project=project
 
     next()
 
