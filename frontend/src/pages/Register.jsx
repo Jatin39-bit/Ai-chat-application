@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import axios from '../config/axios'
 import { useNavigate } from 'react-router-dom';
 import { userContext } from '../context/user.context';
+import { useSnackbar } from '../context/snackbar.context';
 import AuthForm from '../components/AuthForm';
 
 const Register = () => {
@@ -10,6 +11,7 @@ const Register = () => {
 
     const navigate = useNavigate();
     const { setUser } = useContext(userContext);
+    const { showSnackbar } = useSnackbar();
 
     const handleSubmit = async ({ email, password }) => {
         try {
@@ -20,14 +22,25 @@ const Register = () => {
                 localStorage.setItem('token', response.data.token);
                 setUser(response.data.user);
                 navigate('/');
+                showSnackbar({
+                    variant: 'success',
+                    title: 'Success',
+                    message: 'Account created successfully'
+                });
             }
         } catch (err) {
-            console.log(err);
+            let errorMessage;
             if (err.response?.data?.message == "11000") {
-                setError("User already exists with this email");
+                errorMessage = "User already exists with this email";
             } else {
-                setError('Registration failed');
+                errorMessage = 'Registration failed';
             }
+            setError(errorMessage);
+            showSnackbar({
+                variant: 'error',
+                title: 'Error',
+                message: errorMessage
+            });
         } finally {
             setLoading(false);
         }

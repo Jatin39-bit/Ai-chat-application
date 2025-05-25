@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../config/axios';
 import { useState, useContext } from 'react';
 import { userContext } from '../context/user.context';
+import { useSnackbar } from '../context/snackbar.context';
 import AuthForm from '../components/AuthForm';
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
     
     const navigate = useNavigate();
     const { setUser } = useContext(userContext);
+    const { showSnackbar } = useSnackbar();
 
     const handleSubmit = async ({ email, password }) => {
         try {
@@ -21,10 +23,20 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token);
                 setUser(response.data.user);
                 navigate('/');
+                showSnackbar({
+                    variant: 'success',
+                    title: 'Success',
+                    message: 'Successfully logged in'
+                });
             }
         } catch (err) {
-            console.log(err);
-            setError(err.response?.data?.message || 'Invalid email or password');
+            const errorMessage = err.response?.data?.message || 'Invalid email or password';
+            setError(errorMessage);
+            showSnackbar({
+                variant: 'error',
+                title: 'Error',
+                message: errorMessage
+            });
         } finally {
             setLoading(false);
         }
