@@ -2,7 +2,7 @@ import {io} from 'socket.io-client'
 
 let socket;
 export const initializeSocket=(ProjectId)=>{
-    socket=io('https://chat-application-backend-vert.vercel.app/',{
+    socket=io('https://ai-chat-application-hqz2.onrender.com/',{
         auth:{
             token:localStorage.getItem('token')
         },

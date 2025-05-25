@@ -14,12 +14,12 @@ const server = http.createServer(app)
 import {Server} from 'socket.io'
 const io=new Server(server,{
   cors:{
-    origin:[''],
+    origin:['*'],
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true
   },
-  transports:["websocket"]
+  transports:["websocket", "polling"]
 })
 
 io.use(async(socket,next)=>{
