@@ -1,15 +1,24 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userContext } from '../context/user.context';
+import { useSnackbar } from '../context/snackbar.context';
+import Button from './Button';
 
 const Layout = ({ children }) => {
   const { user, setUser } = useContext(userContext);
+  const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUser(null);
     navigate('/login');
+    
+    showSnackbar({
+      variant: 'info',
+      title: 'Logged out',
+      message: 'You have been successfully logged out'
+    });
   };
 
   return (
@@ -35,12 +44,13 @@ const Layout = ({ children }) => {
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <button
+                  <Button
                     onClick={handleLogout}
-                    className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    variant="primary"
+                    size="sm"
                   >
                     Logout
-                  </button>
+                  </Button>
                 </div>
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                   <div className="ml-3 relative">

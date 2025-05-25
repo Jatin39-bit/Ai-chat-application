@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { userContext } from "../context/user.context";
 import axios from "../config/axios";
-
+import Loader from "../components/Loader";
 const ProtectWrapper = ({children}) => {
     const [loading, setLoaidng] = useState(true)
     const { setUser } = useContext(userContext);
@@ -34,7 +34,11 @@ const ProtectWrapper = ({children}) => {
 
 
     if(loading){
-        return <h1>Loading...</h1>
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <Loader fullScreen size="xl" />
+            </div>
+        )
     }
 
 
