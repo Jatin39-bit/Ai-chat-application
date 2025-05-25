@@ -1,8 +1,7 @@
-
 /* eslint-disable no-unused-vars */
 
-import { useEffect, useState, useContext } from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect, useState, useContext, useRef } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import axios from "../config/axios"
 import { initializeSocket, receiveMessage, sendMessage } from "../config/socket.js"
 import { userContext } from "../context/user.context"
@@ -14,14 +13,21 @@ const Project = () => {
     const [addUserModal, setAddUserModal] = useState(false)
     const [members, setMembers] = useState([])
     const location = useLocation()
-    const [project, setProject] = useState(location.state.project)
+    const navigate = useNavigate()
+    const [project, setProject] = useState(location.state?.project)
     const [message, setMessage] = useState('')
     const { user } = useContext(userContext)
     const [messages, setMessages] = useState([])
     const [fileTree, setFileTree] = useState({})
-
     const [currentFile, setCurrentFile] = useState(null)
+    const messageEndRef = useRef(null)
 
+    useEffect(() => {
+        if (!project) {
+            navigate('/')
+            return
+        }
+    }, [project, navigate])
 
     async function getMembers() {
         try {
