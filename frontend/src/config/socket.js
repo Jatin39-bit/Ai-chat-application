@@ -11,6 +11,11 @@ export const initializeSocket=(ProjectId)=>{
         },
         transports: ["websocket"]
     })
+
+    socket.on("connect_error", (err) => {
+        console.error("WebSocket connection error:", err.message);
+    });
+    
     return socket
 }
 
