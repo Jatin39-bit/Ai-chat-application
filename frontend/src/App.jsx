@@ -3,11 +3,11 @@ import './App.css'
 import UserProvider from './context/user.context'
 import { SnackbarProvider } from './context/snackbar.context'
 import Layout from './components/Layout'
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 function App() {
   return(
-    <HashRouter>
+    <BrowserRouter>
       <UserProvider>
         <SnackbarProvider>
           <Layout>
@@ -15,7 +15,7 @@ function App() {
           </Layout>
         </SnackbarProvider>
       </UserProvider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
